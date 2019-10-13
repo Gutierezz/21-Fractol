@@ -1,121 +1,136 @@
 #include "fractol.h"
 
-int	mandelbrot(t_complex c)
+int	mandelbrot(t_complex c, t_fract *fract)
 {
-	int	i;
-	t_complex z;
+	int			i;
+	t_complex	z;
 
 	i = 0;
 	z = c;
-	while (in_circle(z) && i < MAX_ITER)
+	while (in_circle(z) && i < fract->max_iter)
 	{
 		z = add_comp(pow_two(z), c);
 		i++;
 	}
-	return (get_color(i));
+	return (i);
 }
 
-int	mandelbar(t_complex c)
+int	mandelbar(t_complex c, t_fract *fract)
 {
-	int	i;
-	t_complex z;
+	int			i;
+	t_complex	z;
 
 	i = 0;
 	z = c;
-	while (in_circle(z) && i < MAX_ITER)
+	while (in_circle(z) && i < fract->max_iter)
 	{
 		z = add_comp(pow_two(complex(z.re, -z.im)), c);
 		i++;
 	}
-	return (get_color(i));
+	return (i);
 }
 
-int	burning_ship(t_complex c)
+int	burning_ship(t_complex c, t_fract *fract)
 {
-	int	i;
-	t_complex z;
-	double	re_abs;
-	double	im_abs;
+	int			i;
+	t_complex	z;
 
 	i = 0;
 	z = c;
-	while (in_circle(z) && i < MAX_ITER)
+	while (in_circle(z) && i < fract->max_iter)
 	{
-		re_abs = fabs(z.re);
-		im_abs = fabs(z.im);
-		z = add_comp(complex(pow(re_abs, 2.0) - pow(im_abs, 2.0), -2.0 * re_abs * im_abs), c);
+		z = pow_two(complex(fabs(z.re), fabs(z.im)));
+		z = add_comp(complex(z.re, -z.im), c);
 		i++;
 	}
-	return (get_color(i));
+	return (i);
 }
 
-int	mandeldrop(t_complex c)
+int	mandeldrop(t_complex c, t_fract *fract)
 {
-	int	i;
-	t_complex 	z;
+	int			i;
+	t_complex	z;
 
 	i = 0;
-	z =  complex(c.im, c.re);
-	while(in_circle(z) && i < MAX_ITER)
+	c = reverse_comp(c);
+	z = c;
+	while(in_circle(z) && i < fract->max_iter)
 	{
-		z = sub_comp(pow_two(z), complex(c.im, c.re));
+		z = sub_comp(pow_two(z), c);
 		i++;
 	}
-	return (get_color(i));
+	return (i);
 }
 
-int	multi_mandel(t_complex c, int power)
+int	multi_mandel(t_complex c, t_fract *fract)
 {
-	int	i;
-	t_complex 	z;
+	int			i;
+	t_complex	z;
 	t_complex	z_pow;
 
 	i = 0;
 	z = c;
-	while (in_circle(z) && i < MAX_ITER)
+	while (in_circle(z) && i < fract->max_iter)
 	{
-		if (power == 0)
+		if (fract->multi_pow == 0)
 			z_pow = complex(1.0, 0.0);
 		else
-			z_pow = (power > 0) ? comppow(z, power) : reverse_comp(comppow(z, -power));
+			z_pow = (fract->multi_pow > 0) ? comppow(z, fract->multi_pow) : \
+			reverse_comp(comppow(z, -fract->multi_pow));
 		z = add_comp(z_pow, c);
 		i++;
 	}
 
-	return (get_color(i));
+	return (i);
 }
 
-int	buffalo(t_complex c) //buffalo
+int	buffalo(t_complex c, t_fract *fract) //buffalo
 {
-	int	i;
-	t_complex z;
-	double	re_abs;
-	double	im_abs;
+	int			i;
+	t_complex	z;
 
 	i = 0;
+	c = complex(c.re, -c.im);
 	z = c;
-	while (in_circle(z) && i < MAX_ITER)
+	while (in_circle(z) && i < fract->max_iter)
 	{
-		re_abs = fabs(z.re);
-		im_abs = fabs(z.im);
-		z = add_comp(sub_comp(pow_two(complex(re_abs, im_abs)), complex(re_abs, im_abs)), complex(c.re, -c.im));
+		z = complex(fabs(z.re), fabs(z.im));
+		z = add_comp(sub_comp(pow_two(z), z), c);
 		i++;
 	}
-	return (get_color(i));
+	return (i);
 }
 
-int	spider(t_complex c)
+
+int	spider(t_complex c, t_fract *fract)
 {
-	int	i;
-	t_complex 	z;
+	int			i;
+	t_complex	z;
 
 	i = 0;
 	z = c;
-	while (in_circle(z) && i < MAX_ITER)
+	while (in_circle(z) && i < fract->max_iter)
 	{
 		z = add_comp(pow_two(z), c);
 		c = add_comp(complex(c.re / 2.0, c.im / 2.0), z);
 		i++;
 	}
-	return (get_color(i));
+	return (i);
+}
+
+int	celtic(t_complex c, t_fract *fract)
+{
+	int			i;
+	t_complex	z;
+
+	i = 0;
+	z = c;
+	while (in_circle(z) && i < fract->max_iter)
+	{
+		z = pow_two(z);
+		z = complex(fabs(z.re), z.im);
+		z = add_comp(z, c);
+		i++;
+	}
+	return (i);
 }

@@ -16,3 +16,12 @@ void	put_image(t_fract *fract)
 {
 	mlx_put_image_to_window(fract->mlx, fract->win, fract->img, 0, 0);
 }
+
+t_range	range(double min, double max)
+{
+	t_range	range;
+
+	range.min = min;
+	range.max = max;
+	return (range);
+}

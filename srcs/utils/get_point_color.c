@@ -1,27 +1,5 @@
 #include "fractol.h"
 
-int	choose_fractal_method(t_complex c, t_fract *fract)
-{
-	if (fract->type == MANDELBROT)
-		return (mandelbrot(c));
-	else if (fract->type == JULIA)
-		return (julia(c, fract->julia_seed));
-	else if (fract->type == BURN_SHIP)
-		return (burning_ship(c));
-	else if (fract->type == MANDELBAR)
-		return (mandelbar(c));
-	else if (fract->type == MANOWAR)
-		return (manowar(c));
-	else if (fract->type == MANDELDROP)
-		return (mandeldrop(reverse_comp(c)));
-	else if (fract->type == PHOENIX)
-		return (phoenix(c));
-	else if (fract->type == TEST)
-		return (other(c));
-	return (0);
-}
-
-
 // int	other(t_complex c)  										//  BULL_FACE
 // {
 // 	int	i;
@@ -83,11 +61,11 @@ static int	color_palette(double t)
 }
 */
 
-int	get_color(int i)
+int	get_color(int i, int max_iter)
 {
 	double	t;
 
-	t = (double)i / (double)MAX_ITER;
+	t = (double)i / (double)max_iter;
 	//return (color_palette(t));
 	// int red = (int)((1 - t) * t *255);
 	// int green = (int)((1 - t) * t *255);
@@ -116,43 +94,6 @@ int	get_color(int i)
 // 			break ;
 // 		bot = real_mult(comppow(z, 2), 3.0);
 // 		z = sub_comp(z, comlexcomp_div(top, bot));
-// 		i++;
-// 	}
-// 	return (get_color(i));
-// }
-
-// int		other(t_complex c)
-// {  														 // NOVA TRY
-// 	int	i;
-// 	t_complex z;
-// 	t_complex top;
-// 	t_complex bot;
-
-// 	i = 0;
-// 	z = complex(1.0, 0.0);
-// 	while (i < 100)
-// 	{
-// 		top = sub_comp(comppow(z, 3), complex(1.0, 0.0));
-// 		if (comp_abs(top) < 1e-6)
-// 			break ;
-// 		bot = real_mult(comppow(z, 2), 3);
-// 		z = add_comp(sub_comp(z, comp_div(top, bot)), c);
-// 		i++;
-// 	}
-// 	return (get_color(i));
-// }
-
-
-// int		other(t_complex c)
-// {  														 // NOVA TRY
-// 	int	i;
-// 	t_complex z;
-
-// 	i = 0;
-// 	z = c;
-// 	while (in_circle(z) && i < MAX_ITER)
-// 	{
-// 		z =
 // 		i++;
 // 	}
 // 	return (get_color(i));

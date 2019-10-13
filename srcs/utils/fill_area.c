@@ -1,22 +1,38 @@
 #include "fractol.h"
 
+double	lerp(double norm, double min, double max)
+{
+	return ((max - min) * norm + min);
+}
+
+double	norm(double value, double min, double max)
+{
+	return ((value - min) / (max - min));
+}
+
+double	map(double value, t_range pixel, t_range comp)
+{
+	return (lerp(norm(value, pixel.min, pixel.max), comp.min, comp.max));
+}
+
 void	*fill_area(t_fract *fract)
 {
-	int	y;
-	int	x;
-	int	color;
+	int			y;
+	int			x;
+	int			color;
 	t_complex	c;
+	int			iter;
 
-	//ft_printf("fill_area!!!!!!!!!!!!! \n");
 	y = fract->thread_min_y;
 	while (y < fract->thread_max_y)
 	{
-		c.im = fract->max_lim.im - y * fract->scale.im;
+		c.im = map(WIN_H - y, range(0, WIN_H), fract->im_range);
 		x = -1;
 		while (++x < WIN_W)
 		{
-			c.re = fract->min_lim.re + x * fract->scale.re;
-			color = choose_fractal_method(c, fract);
+			c.re = map(x, range(0, WIN_W), fract->re_range);
+			iter = (*(fract->func))(c, fract);
+			color = get_color(iter, fract->max_iter);
 			set_pixel(fract, x, y, color);
 		}
 		y++;
@@ -31,6 +47,7 @@ void	fill_image(t_fract *fract)
 	t_fract		fracts[THREADS_NUM];
 
 	i = -1;
+	//clear_image(fract); 								// ????
 	while (++i < THREADS_NUM)
 	{
 		fracts[i] = *fract;
@@ -41,5 +58,5 @@ void	fill_image(t_fract *fract)
 	while (i--)
 		pthread_join(threads[i], NULL);
 	put_image(fract);
-	ft_printf("drawn!\n");
+	//ft_printf("drawn!\n");
 }
