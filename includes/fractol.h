@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/17 15:42:48 by ttroll            #+#    #+#             */
+/*   Updated: 2019/10/17 16:58:52 by ttroll           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef	FRACTOL_H
 # define FRACTOL_H
 
@@ -6,11 +18,12 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx.h"
-# include "my_keys.h"
+//# include "my_keys.h"
+# include "keys.h"
 
-# define WIN_W 800
-# define WIN_H 800
-# define THREADS_NUM 8
+# define WIN_W 1200
+# define WIN_H 1200
+# define THREADS_NUM 12
 
 # define PI 3.14159265359
 
@@ -57,12 +70,6 @@ typedef struct	s_range
 	double		min;
 	double		max;
 }				t_range;
-
-// typedef struct	s_mouse
-// {
-// 	int			x;
-// 	int			y;
-// }				t_mouse;
 
 typedef struct	s_fract
 {

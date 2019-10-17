@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int	manowar(t_complex c, t_fract *fract)  // MANOWAR
+int	manowar(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -35,7 +35,7 @@ int	julia(t_complex c, t_fract *fract)
 	return (i);
 }
 
-int	multi_julia(t_complex c, t_fract *fract)  // MULTIJULIA WORK_FINE
+int	multi_julia(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -56,7 +56,7 @@ int	multi_julia(t_complex c, t_fract *fract)  // MULTIJULIA WORK_FINE
 	return (i);
 }
 
-int	phoenix(t_complex c, t_fract *fract)  // phoenix
+int	phoenix(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;

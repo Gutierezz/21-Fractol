@@ -36,12 +36,12 @@ int	mouse_zoom(int key, int x, int y, t_fract *fract)
 }
 
 
-int key_press(int key, t_fract *fract)
+int		key_press(int key, t_fract *fract)
 {
 	if (key == VK_ESCAPE)
 	{
 		fract_clear(&fract, 0);
-		exit (0);
+		exit(0);
 	}
 	else if (key == VK_R)
 	{

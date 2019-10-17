@@ -15,7 +15,8 @@ t_fract			*fract_init(char *name, t_type type)
 		fract_clear(&fract, WINDOW_INIT_ERR);
 	if ((fract->img = mlx_new_image(fract->mlx, WIN_W, WIN_H)) == NULL)
 		fract_clear(&fract, IMAGE_INIT_ERR);
-	if ((fract->data = mlx_get_data_addr(fract->img, &fract->bpp, &fract->line_size, &fract->endian)) == NULL)
+	if ((fract->data = mlx_get_data_addr(fract->img, &fract->bpp, \
+	&fract->line_size, &fract->endian)) == NULL)
 		fract_clear(&fract, DATA_ADDR_ERR);
 	fract->bpp >>= 3;
 	fract->type = type;

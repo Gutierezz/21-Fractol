@@ -3,7 +3,7 @@ NAME = fractol
 SRC_DIR 	= ./srcs
 OBJ_DIR 	= ./obj
 LIB_DIR 	= ./libft
-MLX_DIR 	= ../mlx_test  # перелинковать на маке
+MLX_DIR 	= ./minilibx  # перелинковать на маке
 
 LIB 		= $(LIB_DIR)/libft.a
 
@@ -28,7 +28,7 @@ CC		  	= gcc
 INC		  	= -I $(LIB_DIR)/includes -I includes -I $(MLX_DIR)
 FLAGS 		= -Wall -Wextra -Werror -O3# УДАЛИТЬ ФЛАГ
 LIB_LINK	= -lm -lpthread -L $(LIB_DIR) -lft
-MLX_LINK 	= -L $(MLX_DIR) -lmlx -lXext -lX11 #-framework OpenGL -framework AppKit
+MLX_LINK 	= -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit #-lXext -lX11
 
 
 all: $(LIB) $(NAME)

@@ -84,7 +84,7 @@ int	multi_mandel(t_complex c, t_fract *fract)
 	return (i);
 }
 
-int	buffalo(t_complex c, t_fract *fract) //buffalo
+int	buffalo(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
