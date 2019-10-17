@@ -3,13 +3,13 @@
 int		close_window(t_fract *fract)
 {
 	fract_clear(&fract, 0);
-	exit(0);
+	exit (0);
 }
 
 
 int	set_julia_seed(int x, int y, t_fract *fract)
 {
-	if (!fract->static_mouse)
+	if (fract->static_mouse == 0)
 		fract->julia_seed = complex(((double)x * fract->scale.re - 2.0), \
 				((double)(WIN_H - y) * fract->scale.im - 2.0));
 	fill_image(fract);
@@ -21,11 +21,11 @@ int	mouse_zoom(int key, int x, int y, t_fract *fract)
 	t_complex	mouse_pos;
 	double		zoom;
 
-	if (key == WHEEL_UP || key == WHEEL_DOWN)
+	if (key == WHEEL_UP || key == WHEEL_DOWN || key == MOUSE_LEFT || key == MOUSE_RIGHT)
 	{
 		mouse_pos.re = map(x, range(0, WIN_W), fract->re_range);
 		mouse_pos.im = map(WIN_H - y, range(0, WIN_H), fract->im_range);
-		zoom = (key == WHEEL_DOWN) ? 0.8 : 1.2;
+		zoom = (key == WHEEL_DOWN || key == MOUSE_RIGHT) ? 0.9 : 1.1;
 		fract->re_range.min = lerp(1 / zoom, mouse_pos.re, fract->re_range.min);
 		fract->re_range.max = lerp(1 / zoom, mouse_pos.re, fract->re_range.max);
 		fract->im_range.min = lerp(1 / zoom, mouse_pos.im, fract->im_range.min);
@@ -49,7 +49,7 @@ int key_press(int key, t_fract *fract)
 		fract->im_range = range(-2.0, 2.0);
 	}
 	else if (key == VK_SPACE)
-		fract->static_mouse = (fract->static_mouse ? 0 : 1);
+		fract->static_mouse = (fract->static_mouse == 1) ? 0 : 1;
 	else if (key == VK_PLUS && fract->max_iter < 150)
 		fract->max_iter++;
 	else if (key == VK_MINUS && fract->max_iter > 50)
@@ -58,7 +58,6 @@ int key_press(int key, t_fract *fract)
 		fract->multi_pow++;
 	else if (key == VK_LEFT && fract->multi_pow > -8)
 		fract->multi_pow--;
-	ft_printf("KEYBOARD code : %d\n", key);
 	fill_image(fract);
 	return (0);
 }

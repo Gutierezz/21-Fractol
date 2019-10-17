@@ -83,8 +83,6 @@ void	fract_init_helper(t_fract *fract)
 	fract->max_iter = 100;
 	ft_printf("type %d\n", fract->type);
 	fract->multi_pow = 3;
+	fract->static_mouse = 0;
 	fract->func = (fract->type < 8) ? choose_func(fract->type) : choose_func_2(fract->type);
-	// comp_print(fract->scale);
-	// comp_print(fract->max);
-	// comp_print(fract->min);
 }
