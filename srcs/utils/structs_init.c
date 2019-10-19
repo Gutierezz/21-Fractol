@@ -20,6 +20,7 @@ t_fract			*fract_init(char *name, t_type type)
 		fract_clear(&fract, DATA_ADDR_ERR);
 	fract->bpp >>= 3;
 	fract->type = type;
+	fract->color_mode = 1;
 	fract_init_helper(fract);
 	hook_commands(fract);
 	clear_image(fract);
@@ -36,7 +37,7 @@ t_complex		complex(double re, double im)
 	return (complex);
 }
 
-int		(*choose_func(t_type type))(t_complex, t_fract *)
+t_color		(*choose_func(t_type type))(t_complex, t_fract *)
 {
 	if (type == MANDELBROT)
 		return (&mandelbrot);
@@ -57,7 +58,7 @@ int		(*choose_func(t_type type))(t_complex, t_fract *)
 	return (NULL);
 }
 
-int		(*choose_func_2(t_type type))(t_complex, t_fract *)
+t_color		(*choose_func_2(t_type type))(t_complex, t_fract *)
 {
 	if (type == PHOENIX)
 		return (&phoenix);
@@ -81,9 +82,10 @@ void	fract_init_helper(t_fract *fract)
 	fract->scale.im = (fract->im_range.max - fract->im_range.min) / (WIN_H - 1);
 	fract->scale.re = (fract->re_range.max - fract->re_range.min) / (WIN_W - 1);
 	fract->julia_seed = complex(-0.4, 0.6);
-	fract->max_iter = 100;
+	fract->max_iter = 50;
 	ft_printf("type %d\n", fract->type);
 	fract->multi_pow = 3;
 	fract->static_mouse = 0;
-	fract->func = (fract->type < 8) ? choose_func(fract->type) : choose_func_2(fract->type);
+	fract->func = (fract->type < 8) ? choose_func(fract->type) \
+	: choose_func_2(fract->type);
 }

@@ -6,7 +6,7 @@
 /*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 15:42:48 by ttroll            #+#    #+#             */
-/*   Updated: 2019/10/17 16:58:52 by ttroll           ###   ########.fr       */
+/*   Updated: 2019/10/19 19:37:31 by ttroll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ typedef struct	s_complex
 	double		im;
 }				t_complex;
 
+typedef	struct	s_color
+{
+	double iter;
+	t_complex z;
+	double smooth;
+}				t_color;
+
 typedef struct	s_range
 {
 	double		min;
@@ -83,8 +90,9 @@ typedef struct	s_fract
 	int 		endian;
 	int			thread_min_y;
 	int			thread_max_y;
+	int			color_mode;
 	int			multi_pow;
-	int			(*func)(t_complex, struct s_fract *);
+	t_color		(*func)(t_complex, struct s_fract *);
 	int			max_iter;
 	int			static_mouse;
 	t_complex	scale;
@@ -104,6 +112,14 @@ int		key_press(int key, t_fract *fract);
 void	hook_commands(t_fract *fract);
 
 /*
+** key_press_utils
+*/
+
+void	move_image(int key, t_fract *fract);
+void	change_color_mode(int key, t_fract *fract);
+void	maxiter_change(int key, t_fract *fract);
+
+/*
 ** fill_image
 */
 
@@ -119,8 +135,8 @@ void			fill_image(t_fract *fract);
 
 t_fract			*fract_init(char *name, t_type type);
 t_complex		complex(double re, double im);
-int				(*choose_func(t_type type))(t_complex, t_fract *);
-int				(*choose_func_2(t_type type))(t_complex, t_fract *);
+t_color			(*choose_func(t_type type))(t_complex, t_fract *);
+t_color				(*choose_func_2(t_type type))(t_complex, t_fract *);
 void			fract_init_helper(t_fract *fract);
 
 /*
@@ -164,36 +180,37 @@ t_complex		sub_comp(t_complex c1, t_complex c2);
 ** get_point_color
 */
 
-int			get_color(int i, int max_iter);
-int			other(t_complex c);
+t_color			color_init(double iter, t_complex last_z, double smooth);
+int				get_color(t_color color, t_fract *fract);
+int				other(t_complex c);
 
 /*
 ** julia_group
 */
 
-int			julia(t_complex c, t_fract *fract);
-int			manowar(t_complex c, t_fract *fract);
-int			phoenix(t_complex c, t_fract *fract);
-int			multi_julia(t_complex c, t_fract *fract);
+t_color			julia(t_complex c, t_fract *fract);
+t_color			manowar(t_complex c, t_fract *fract);
+t_color			phoenix(t_complex c, t_fract *fract);
+t_color			multi_julia(t_complex c, t_fract *fract);
 
 /*
 **	newton_group
 */
 
-int			newton(t_complex c, t_fract *fract);
-int			nova(t_complex c, t_fract *fract);
+t_color				newton(t_complex c, t_fract *fract);
+t_color		nova(t_complex c, t_fract *fract);
 
 /*
 ** mandel_group
 */
 
-int			mandelbrot(t_complex c, t_fract *fract);
-int			mandelbar(t_complex c, t_fract *fract);
-int			burning_ship(t_complex c, t_fract *fract);
-int			mandeldrop(t_complex c, t_fract *fract);
-int			multi_mandel(t_complex c, t_fract *fract);
-int			buffalo(t_complex c, t_fract *fract);
-int			spider(t_complex c, t_fract *fract);
-int			celtic(t_complex c, t_fract *fract);
+t_color				mandelbrot(t_complex c, t_fract *fract);
+t_color				mandelbar(t_complex c, t_fract *fract);
+t_color				burning_ship(t_complex c, t_fract *fract);
+t_color				mandeldrop(t_complex c, t_fract *fract);
+t_color				multi_mandel(t_complex c, t_fract *fract);
+t_color				buffalo(t_complex c, t_fract *fract);
+t_color				spider(t_complex c, t_fract *fract);
+t_color				celtic(t_complex c, t_fract *fract);
 
 #endif

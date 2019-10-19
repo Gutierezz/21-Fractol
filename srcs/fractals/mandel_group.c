@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int	mandelbrot(t_complex c, t_fract *fract)
+t_color		mandelbrot(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -12,10 +12,10 @@ int	mandelbrot(t_complex c, t_fract *fract)
 		z = add_comp(pow_two(z), c);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, (double)i + 1.0 - log(log(comp_abs(z)))/log(2.0)));
 }
 
-int	mandelbar(t_complex c, t_fract *fract)
+t_color		mandelbar(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -27,10 +27,10 @@ int	mandelbar(t_complex c, t_fract *fract)
 		z = add_comp(pow_two(complex(z.re, -z.im)), c);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }
 
-int	burning_ship(t_complex c, t_fract *fract)
+t_color		burning_ship(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -43,10 +43,10 @@ int	burning_ship(t_complex c, t_fract *fract)
 		z = add_comp(complex(z.re, -z.im), c);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }
 
-int	mandeldrop(t_complex c, t_fract *fract)
+t_color		mandeldrop(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -59,10 +59,10 @@ int	mandeldrop(t_complex c, t_fract *fract)
 		z = sub_comp(pow_two(z), c);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }
 
-int	multi_mandel(t_complex c, t_fract *fract)
+t_color		multi_mandel(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -80,11 +80,10 @@ int	multi_mandel(t_complex c, t_fract *fract)
 		z = add_comp(z_pow, c);
 		i++;
 	}
-
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }
 
-int	buffalo(t_complex c, t_fract *fract)
+t_color		buffalo(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -98,11 +97,11 @@ int	buffalo(t_complex c, t_fract *fract)
 		z = add_comp(sub_comp(pow_two(z), z), c);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }
 
 
-int	spider(t_complex c, t_fract *fract)
+t_color		spider(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -115,10 +114,10 @@ int	spider(t_complex c, t_fract *fract)
 		c = add_comp(complex(c.re / 2.0, c.im / 2.0), z);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }
 
-int	celtic(t_complex c, t_fract *fract)
+t_color		celtic(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -132,5 +131,5 @@ int	celtic(t_complex c, t_fract *fract)
 		z = add_comp(z, c);
 		i++;
 	}
-	return (i);
+	return (color_init((double)i, z, 0.0));
 }

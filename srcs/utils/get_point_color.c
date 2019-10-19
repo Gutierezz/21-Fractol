@@ -1,24 +1,4 @@
 #include "fractol.h"
-
-// int	other(t_complex c)  										//  BULL_FACE
-// {
-// 	int	i;
-// 	t_complex z;
-// 	t_complex up;
-// 	t_complex down;
-
-// 	i = 0;
-// 	z = c;
-// 	while (in_circle(z) && i < MAX_ITER)
-// 	{
-// 		up = (sub_comp(comppow(z, 4), complex(1.0, 0.0)));
-// 		down = (add_comp(comppow(z, 4), complex(1.0, 0.0)));
-// 		z = add_comp(comp_div(up, down), complex(-c.im, c.re));
-// 		i++;
-// 	}
-// 	return (get_color(i));
-// }
-
 /*
 static int	color_palette(double t)
 {
@@ -61,40 +41,52 @@ static int	color_palette(double t)
 }
 */
 
-int	get_color(int i, int max_iter)
+t_color		color_init(double iter, t_complex last_z, double smooth)
 {
-	double	t;
+	t_color color;
 
-	t = (double)i / (double)max_iter;
-	//return (color_palette(t));
-	// int red = (int)((1 - t) * t *255);
-	// int green = (int)((1 - t) * t *255);
-	// int blue = (int)((1 - t) * t *255);
-	int red = (int)(9 * (1 - t) * pow(t, 3) * 255);
-	int green = (int)(15 * pow((1 - t),2) * pow(t, 2) * 255);
-	int blue = (int)(8.5 * pow((1 - t), 3)  * t * 255);
-	int color = (red << 16) | (green << 8) | (blue);
+	color.iter = iter;
+	color.z = last_z;
+	color.smooth = smooth;
 	return (color);
 }
 
-// int		newton(t_complex c)   // NEWTON
-// {
-// 	int	i;
-// 	t_complex z;
-// 	t_complex top;
-// 	t_complex bot;
+static int color_func(double i,double f, double p)
+{
+    return ((int)pow(255*(cos(sqrt(i) * f + p)), 2.0));
+}
 
 
-// 	i = 0;
-// 	z = c;
-// 	while (i < 100)
-// 	{
-// 		top = add_comp(comppow(z, 4), complex(1.0, 0.0));
-// 		if (comp_abs(top) < 1e-5)
-// 			break ;
-// 		bot = real_mult(comppow(z, 2), 3.0);
-// 		z = sub_comp(z, comlexcomp_div(top, bot));
-// 		i++;
-// 	}
-// 	return (get_color(i));
-// }
+int		get_color(t_color col_p, t_fract *fract)
+{
+	double	perc;
+	int 	color;
+
+	perc = 0.0;
+	color = 0;
+	if ((int)col_p.iter >= fract->max_iter)
+		return (color);
+	if (fract->color_mode == 1)
+	{
+		perc = col_p.iter / (double)fract->max_iter;
+		color |= (int)(9 * (1 - perc) * pow(perc, 3) * 255) << 16;
+		color |= (int)(15 * pow((1 - perc),2) * pow(perc, 2) * 255) << 8;
+		color |= (int)(8.5 * pow((1 - perc), 3)  * perc * 255);
+	}
+	else if (fract->color_mode == 2)
+	{
+		perc = col_p.smooth;
+		color |= (int)(sin(perc) * 160 + 65) << 16;
+		color |= (int)(sin(perc) * 20 + 35) << 8;
+		color |= (int)(sin(perc) * 120 + 60);
+	}
+	else if (fract->color_mode == 3)
+	{
+		perc = col_p.iter;
+		color |= color_func(perc, 1, 0) << 16;
+		color |= color_func(perc, 1, 120) << 8;
+		color |= color_func(perc, 1, 240);
+	}
+	return (color);
+}
+

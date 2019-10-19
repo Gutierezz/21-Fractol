@@ -30,11 +30,11 @@ int	mouse_zoom(int key, int x, int y, t_fract *fract)
 		fract->re_range.max = lerp(1 / zoom, mouse_pos.re, fract->re_range.max);
 		fract->im_range.min = lerp(1 / zoom, mouse_pos.im, fract->im_range.min);
 		fract->im_range.max = lerp(1 / zoom, mouse_pos.im, fract->im_range.max);
+		maxiter_change(zoom > 1 ? VK_PLUS : VK_MINUS , fract);
 		fill_image(fract);
 	}
 	return (0);
 }
-
 
 int		key_press(int key, t_fract *fract)
 {
@@ -45,19 +45,20 @@ int		key_press(int key, t_fract *fract)
 	}
 	else if (key == VK_R)
 	{
+		fract->max_iter = 50;
 		fract->re_range = range(-2.0, 2.0);
 		fract->im_range = range(-2.0, 2.0);
+		fract->scale.im = (fract->im_range.max - fract->im_range.min) / (WIN_H - 1);
+		fract->scale.re = (fract->re_range.max - fract->re_range.min) / (WIN_W - 1);
 	}
 	else if (key == VK_SPACE)
 		fract->static_mouse = (fract->static_mouse == 1) ? 0 : 1;
-	else if (key == VK_PLUS && fract->max_iter < 150)
-		fract->max_iter++;
-	else if (key == VK_MINUS && fract->max_iter > 50)
-		fract->max_iter--;
-	else if (key == VK_RIGHT && fract->multi_pow < 8)
-		fract->multi_pow++;
-	else if (key == VK_LEFT && fract->multi_pow > -8)
-		fract->multi_pow--;
+	else if (key == VK_PLUS || key == VK_MINUS)
+		maxiter_change(key, fract);
+	else if (key == VK_RIGHT || key == VK_LEFT || key == VK_UP || key == VK_DOWN)
+		move_image(key, fract);
+	else if (key == VK_1 || key == VK_2 || key == VK_3 || key == VK_4)
+		change_color_mode(key, fract);
 	fill_image(fract);
 	return (0);
 }
@@ -67,6 +68,6 @@ void	hook_commands(t_fract *fract)
 	if (fract->type == JULIA || fract->type == MULTIJULIA)
 		mlx_hook(fract->win, 6, 1L<<6, set_julia_seed, fract);
 	mlx_mouse_hook(fract->win, mouse_zoom, fract);
-	mlx_key_hook(fract->win, key_press, fract);
+	mlx_hook(fract->win, 2, 0, key_press, fract);
 	mlx_hook(fract->win, 17, 1L<<17, close_window, fract);
 }

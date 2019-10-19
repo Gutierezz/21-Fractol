@@ -17,7 +17,7 @@ UTILS_O_DIR	= $(OBJ_DIR)/utils
 
 COMP_FILES	= complex_arithmetics.c complex_ops.c
 FRACT_FILES = julia_group.c mandel_group.c newton_group.c
-UTILS_FILES = structs_clear.c structs_init.c fill_area.c get_point_color.c hook_commands.c image_funcs.c main.c
+UTILS_FILES = structs_clear.c structs_init.c fill_area.c get_point_color.c hook_commands.c key_press_utils.c image_funcs.c main.c
 
 COMP_OBJ	= $(addprefix $(COMP_O_DIR)/, $(COMP_FILES:%.c=%.o))
 FRACT_OBJ 	= $(addprefix $(FRACT_O_DIR)/, $(FRACT_FILES:%.c=%.o))
