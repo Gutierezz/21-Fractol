@@ -21,7 +21,7 @@ t_colp		nova(t_complex c, t_fract *fract)
 		z = add_comp(sub_comp(z, comp_div(top, bot)), complex(-c.im, c.re));
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		newton(t_complex c, t_fract *fract)
@@ -44,5 +44,5 @@ t_colp		newton(t_complex c, t_fract *fract)
 		z = sub_comp(z, comp_div(top, bot));
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }

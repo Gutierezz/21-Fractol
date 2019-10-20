@@ -1,12 +1,11 @@
 #include "fractol.h"
 
-t_colp		color_init(double iter, t_complex last_z, double smooth)
+t_colp		color_init(double iter, t_complex last_z)
 {
 	t_colp colp;
 
 	colp.iter = iter;
 	colp.z = last_z;
-	colp.smooth = smooth;
 	return (colp);
 }
 

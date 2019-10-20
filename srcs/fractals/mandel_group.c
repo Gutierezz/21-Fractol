@@ -12,7 +12,7 @@ t_colp		mandelbrot(t_complex c, t_fract *fract)
 		z = add_comp(pow_two(z), c);
 		i++;
 	}
-	return (color_init((double)i, z, (double)i + 1.0 - log(log(comp_abs(z)))/log(2.0)));
+	return (color_init((double)i, z));
 }
 
 t_colp		burning_ship(t_complex c, t_fract *fract)
@@ -28,7 +28,7 @@ t_colp		burning_ship(t_complex c, t_fract *fract)
 		z = add_comp(complex(z.re, -z.im), c);
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		multi_mandel(t_complex c, t_fract *fract)
@@ -49,7 +49,7 @@ t_colp		multi_mandel(t_complex c, t_fract *fract)
 		z = add_comp(z_pow, c);
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		spider(t_complex c, t_fract *fract)
@@ -65,7 +65,7 @@ t_colp		spider(t_complex c, t_fract *fract)
 		c = add_comp(complex(c.re / 2.0, c.im / 2.0), z);
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		celtic(t_complex c, t_fract *fract)
@@ -82,5 +82,5 @@ t_colp		celtic(t_complex c, t_fract *fract)
 		z = add_comp(z, c);
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }

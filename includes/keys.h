@@ -51,6 +51,6 @@
 
 
 #define VK_LESS				44
-#define VK_MORE				4
+#define VK_MORE				46
 
 # endif

@@ -17,7 +17,7 @@ t_colp				manowar(t_complex c, t_fract *fract)
 		z_prev = tmp;
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		julia(t_complex c, t_fract *fract)
@@ -32,7 +32,7 @@ t_colp		julia(t_complex c, t_fract *fract)
 		z = add_comp(comppow(z, 2), fract->julia_seed);
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		multi_julia(t_complex c, t_fract *fract)
@@ -53,7 +53,7 @@ t_colp		multi_julia(t_complex c, t_fract *fract)
 		z = add_comp(z_pow, fract->julia_seed);
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }
 
 t_colp		phoenix(t_complex c, t_fract *fract)
@@ -74,5 +74,5 @@ t_colp		phoenix(t_complex c, t_fract *fract)
 		z_prev = tmp;
 		i++;
 	}
-	return (color_init((double)i, z, 0.0));
+	return (color_init((double)i, z));
 }

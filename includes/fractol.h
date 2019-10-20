@@ -69,7 +69,6 @@ typedef	struct	s_colp
 {
 	double iter;
 	t_complex z;
-	double smooth;
 }				t_colp;
 
 typedef	union	u_color
@@ -191,7 +190,7 @@ t_complex		sub_comp(t_complex c1, t_complex c2);
 ** get_point_color
 */
 
-t_colp			color_init(double iter, t_complex last_z, double smooth);
+t_colp			color_init(double iter, t_complex last_z);
 t_color			inside_coloring(t_colp colp, t_fract *fract);
 t_color			get_color(t_colp color, t_fract *fract);
 
