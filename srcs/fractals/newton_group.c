@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-t_color		nova(t_complex c, t_fract *fract)
+t_colp		nova(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -24,7 +24,7 @@ t_color		nova(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		newton(t_complex c, t_fract *fract)
+t_colp		newton(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;

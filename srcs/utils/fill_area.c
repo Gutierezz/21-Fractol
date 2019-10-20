@@ -19,9 +19,9 @@ void	*fill_area(t_fract *fract)
 {
 	int			y;
 	int			x;
-	int			color;
+	t_color		cun;
 	t_complex	c;
-	t_color		col_params;
+	t_colp		colp;
 
 	y = fract->thread_min_y;
 	while (y < fract->thread_max_y)
@@ -31,9 +31,9 @@ void	*fill_area(t_fract *fract)
 		while (++x < WIN_W)
 		{
 			c.re = map(x, range(0, WIN_W), fract->re_range);
-			col_params = (*(fract->func))(c, fract);
-			color = get_color(col_params, fract);
-			set_pixel(fract, x, y, color);
+			colp = (*(fract->func))(c, fract);
+			cun = get_color(colp, fract);
+			set_pixel(fract, x, y, cun.color);
 		}
 		y++;
 	}

@@ -22,13 +22,13 @@ void	move_image(int key, t_fract *fract)
 
 	if (key == VK_LEFT || key == VK_RIGHT)
 	{
-		step = (fract->re_range.max - fract->re_range.min) * 0.05;
+		step = (fract->re_range.max - fract->re_range.min) * MOVE_STEP;
 		fract->re_range.min += (key == VK_RIGHT) ? step : -step;
 		fract->re_range.max += (key == VK_RIGHT) ? step : -step;
 	}
 	if (key == VK_UP || key == VK_DOWN)
 	{
-		step = (fract->im_range.max - fract->im_range.min) * 0.05;
+		step = (fract->im_range.max - fract->im_range.min) * MOVE_STEP;
 		fract->im_range.min += (key == VK_UP) ? step : -step;
 		fract->im_range.max += (key == VK_UP) ? step : -step;
 	}
@@ -43,4 +43,11 @@ void	maxiter_change(int key, t_fract *fract)
 		fract->max_iter += (fract->max_iter < 50) ? 1 : step;
 	if (key == VK_MINUS && fract->max_iter > 10)
 		fract->max_iter += (fract->max_iter > 50) ? -step : -1;
+}
+
+void	shift_colors(t_fract *fract)
+{
+	fract->c1 = (fract->c1 + 1) % 3;
+	fract->c2 = (fract->c2 + 1) % 3;
+	fract->c3 = (fract->c3 + 1) % 3;
 }

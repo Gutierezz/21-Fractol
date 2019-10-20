@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-t_color		mandelbrot(t_complex c, t_fract *fract)
+t_colp		mandelbrot(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -15,22 +15,7 @@ t_color		mandelbrot(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, (double)i + 1.0 - log(log(comp_abs(z)))/log(2.0)));
 }
 
-t_color		mandelbar(t_complex c, t_fract *fract)
-{
-	int			i;
-	t_complex	z;
-
-	i = 0;
-	z = c;
-	while (in_circle(z) && i < fract->max_iter)
-	{
-		z = add_comp(pow_two(complex(z.re, -z.im)), c);
-		i++;
-	}
-	return (color_init((double)i, z, 0.0));
-}
-
-t_color		burning_ship(t_complex c, t_fract *fract)
+t_colp		burning_ship(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -46,23 +31,7 @@ t_color		burning_ship(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		mandeldrop(t_complex c, t_fract *fract)
-{
-	int			i;
-	t_complex	z;
-
-	i = 0;
-	c = reverse_comp(c);
-	z = c;
-	while(in_circle(z) && i < fract->max_iter)
-	{
-		z = sub_comp(pow_two(z), c);
-		i++;
-	}
-	return (color_init((double)i, z, 0.0));
-}
-
-t_color		multi_mandel(t_complex c, t_fract *fract)
+t_colp		multi_mandel(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -83,25 +52,7 @@ t_color		multi_mandel(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		buffalo(t_complex c, t_fract *fract)
-{
-	int			i;
-	t_complex	z;
-
-	i = 0;
-	c = complex(c.re, -c.im);
-	z = c;
-	while (in_circle(z) && i < fract->max_iter)
-	{
-		z = complex(fabs(z.re), fabs(z.im));
-		z = add_comp(sub_comp(pow_two(z), z), c);
-		i++;
-	}
-	return (color_init((double)i, z, 0.0));
-}
-
-
-t_color		spider(t_complex c, t_fract *fract)
+t_colp		spider(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -117,7 +68,7 @@ t_color		spider(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		celtic(t_complex c, t_fract *fract)
+t_colp		celtic(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;

@@ -50,4 +50,7 @@
 # define VK_NUM_MINUS		78
 
 
+#define VK_LESS				44
+#define VK_MORE				4
+
 # endif

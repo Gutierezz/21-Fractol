@@ -6,7 +6,6 @@ int		close_window(t_fract *fract)
 	exit (0);
 }
 
-
 int	set_julia_seed(int x, int y, t_fract *fract)
 {
 	if (fract->static_mouse == 0)
@@ -57,10 +56,19 @@ int		key_press(int key, t_fract *fract)
 		maxiter_change(key, fract);
 	else if (key == VK_RIGHT || key == VK_LEFT || key == VK_UP || key == VK_DOWN)
 		move_image(key, fract);
-	else if (key >= VK_1 && key <= VK_5)
+	else if (key >= VK_1 && key <= VK_4)
 		change_color_mode(key, fract);
-	else if (key == VK_NUM_0 || key == VK_NUM_1)
+	else if (key == VK_NUM_0)
 		fract->inside_mode = (fract->inside_mode) ? 0 : 1;
+	else if (key == VK_C)
+		shift_colors(fract);
+	else if (key == VK_LESS || key == VK_MORE)
+	{
+		if (key == VK_LESS)
+			fract->multi_pow -= (fract->multi_pow > -6) ? 1 : 0;
+		if (key == VK_MORE)
+			fract->multi_pow += (fract->multi_pow < 6) ? 1 : 0;
+	}
 	fill_image(fract);
 	return (0);
 }
@@ -69,7 +77,9 @@ void	hook_commands(t_fract *fract)
 {
 	if (fract->type == JULIA || fract->type == MULTIJULIA)
 		mlx_hook(fract->win, 6, 1L<<6, set_julia_seed, fract);
-	mlx_hook(fract->win, 4, 0, mouse_zoom, fract);
-	mlx_hook(fract->win, 2, 0, key_press, fract);
+	// mlx_hook(fract->win, 4, 0, mouse_zoom, fract);
+	// mlx_hook(fract->win, 2, 0, key_press, fract);
+	mlx_mouse_hook(fract->win, mouse_zoom, fract);
+	mlx_key_hook(fract->win, key_press, fract);
 	mlx_hook(fract->win, 17, 1L<<17, close_window, fract);
 }

@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-t_color				manowar(t_complex c, t_fract *fract)
+t_colp				manowar(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -20,7 +20,7 @@ t_color				manowar(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		julia(t_complex c, t_fract *fract)
+t_colp		julia(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -35,7 +35,7 @@ t_color		julia(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		multi_julia(t_complex c, t_fract *fract)
+t_colp		multi_julia(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -56,7 +56,7 @@ t_color		multi_julia(t_complex c, t_fract *fract)
 	return (color_init((double)i, z, 0.0));
 }
 
-t_color		phoenix(t_complex c, t_fract *fract)
+t_colp		phoenix(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;

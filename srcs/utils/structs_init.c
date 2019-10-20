@@ -38,34 +38,28 @@ t_complex		complex(double re, double im)
 	return (complex);
 }
 
-t_color		(*choose_func(t_type type))(t_complex, t_fract *)
+t_colp		(*choose_func(t_type type))(t_complex, t_fract *)
 {
 	if (type == MANDELBROT)
 		return (&mandelbrot);
-	else if (type == MANDELBAR)
-		return (&mandelbar);
-	else if (type == MANDELDROP)
-		return (&mandeldrop);
 	else if (type == BURN_SHIP)
 		return (&burning_ship);
-	else if (type == BUFFALO)
-		return (&buffalo);
 	else if (type == CELTIC)
 		return (&celtic);
 	else if (type == SPIDER)
 		return (&spider);
 	else if (type == JULIA)
 		return (&julia);
-	return (NULL);
-}
-
-t_color		(*choose_func_2(t_type type))(t_complex, t_fract *)
-{
-	if (type == PHOENIX)
+	else if (type == PHOENIX)
 		return (&phoenix);
 	else if (type == MANOWAR)
 		return (&manowar);
-	else if (type == NEWTON)
+	return (NULL);
+}
+
+t_colp		(*choose_func_2(t_type type))(t_complex, t_fract *)
+{
+	if (type == NEWTON)
 		return (&newton);
 	else if (type == NOVA)
 		return (&nova);
@@ -84,9 +78,11 @@ void	fract_init_helper(t_fract *fract)
 	fract->scale.re = (fract->re_range.max - fract->re_range.min) / (WIN_W - 1);
 	fract->julia_seed = complex(-0.4, 0.6);
 	fract->max_iter = 50;
-	ft_printf("type %d\n", fract->type);
 	fract->multi_pow = 3;
 	fract->static_mouse = 0;
-	fract->func = (fract->type < 8) ? choose_func(fract->type) \
+	fract->func = (fract->type < NEWTON) ? choose_func(fract->type) \
 	: choose_func_2(fract->type);
+	fract->c1 = 2;
+	fract->c2 = 1;
+	fract->c3 = 0;
 }
