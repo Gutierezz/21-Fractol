@@ -21,6 +21,7 @@ t_fract			*fract_init(char *name, t_type type)
 	fract->bpp >>= 3;
 	fract->type = type;
 	fract->color_mode = 1;
+	fract->inside_mode = 0;
 	fract_init_helper(fract);
 	hook_commands(fract);
 	clear_image(fract);

@@ -57,29 +57,29 @@ static int color_func(double i,double f, double p)
 }
 
 
-int		get_color(t_color col_p, t_fract *fract)
+int		get_color(t_color colp, t_fract *fract)
 {
 	double	perc;
 	int 	color;
 
 	perc = 0.0;
 	color = 0;
-	if ((int)col_p.iter >= fract->max_iter)
-		return (color);
+	if ((int)colp.iter >= fract->max_iter)
+		return (inside_coloring(colp, fract));
 	if (fract->color_mode == 1)
 	{
-		perc = col_p.iter;
-		color |= (UCHAR)(pow(sin(perc) * 80 + 75, 2.0)) << 16;
-		color |= (UCHAR)(sin(perc) * 150 + 55) << 8;
-		color |= (UCHAR)(sin(perc) * 120 + 60);
+		perc = colp.iter;
+		color |= (UCHAR)(0.5 * sin(perc) * 100 + 25) << 16;
+		color |= (UCHAR)(0.8 * sin(perc) * 130 + 35) << 8;
+		color |= (UCHAR)(0.7 * sin(perc) * 60 + 25);
 		// perc = col_p.iter / (double)fract->max_iter;
 		// color |= (UCHAR)(9 * (1 - perc) * pow(perc, 3) * 255) << 16;
 		// color |= (UCHAR)(15 * pow((1 - perc),2) * pow(perc, 2) * 255) << 8;
 		// color |= (UCHAR)(8.5 * pow((1 - perc), 3)  * perc * 255);
 	}
 	else if (fract->color_mode == 2)
-	{
-		perc = col_p.iter;
+	{;
+		perc = colp.iter;
 		color |= (UCHAR)(255 - perc * 3.5) << 16;
 		color |= (UCHAR)(perc * 25) % 255 << 8;
 		color |= (UCHAR)(255 - perc * 5.1);
@@ -89,17 +89,44 @@ int		get_color(t_color col_p, t_fract *fract)
 	}
 	else if (fract->color_mode == 3)
 	{
-		perc = col_p.iter / fract->max_iter;
+		perc = colp.iter / fract->max_iter;
 		color |= (UCHAR)(color_func(perc, 1, 0)) << 16;
 		color |= (UCHAR)(color_func(perc, 1, 120)) << 8;
 		color |= (UCHAR)(color_func(perc, 1, 240));
 	}
 	else if (fract->color_mode == 4)
 	{
-		perc = col_p.iter;
+		perc = colp.iter;
 		color |= (UCHAR)(perc * 11) % 255 << 16;
 		color |= (UCHAR)(255 - perc * 2.1) << 8;
 		color |= (UCHAR)(255 - perc * 6.5);
+	}
+	else if (fract->color_mode == 5)
+	{
+		perc = colp.iter / fract->max_iter;
+		color |= (UCHAR)(9 * (1 - perc) * pow(perc, 3) * 255) << 16;
+		color |= (UCHAR)(15 * pow((1 - perc),2) * pow(perc, 2) * 255) << 8;
+		color |= (UCHAR)(8.5 * pow((1 - perc), 3)  * perc * 255);
+	}
+	return (color);
+}
+
+
+int		inside_coloring(t_color colp, t_fract *fract)
+{
+	int perc;
+	int color;
+
+	perc = colp.iter;
+	color = 0;
+	if (fract->inside_mode == 0)
+		return (0x0);
+	else if (fract->inside_mode == 1)
+	{
+		perc = colp.iter + colp.z.im / colp.z.re;
+		color |= (UCHAR)(perc * 3.9) % 255 << 16;
+		color |= (UCHAR)(255 - perc * 5.5) << 8;
+		color |= (UCHAR)(255 - perc * 8.5);
 	}
 	return (color);
 }

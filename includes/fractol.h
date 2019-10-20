@@ -6,7 +6,7 @@
 /*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 15:42:48 by ttroll            #+#    #+#             */
-/*   Updated: 2019/10/20 11:20:20 by ttroll           ###   ########.fr       */
+/*   Updated: 2019/10/20 16:47:58 by ttroll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_fract
 	int			thread_min_y;
 	int			thread_max_y;
 	int			color_mode;
+	int			inside_mode;
 	int			multi_pow;
 	t_color		(*func)(t_complex, struct s_fract *);
 	int			max_iter;
@@ -183,8 +184,8 @@ t_complex		sub_comp(t_complex c1, t_complex c2);
 */
 
 t_color			color_init(double iter, t_complex last_z, double smooth);
+int				inside_coloring(t_color colp, t_fract *fract);
 int				get_color(t_color color, t_fract *fract);
-int				other(t_complex c);
 
 /*
 ** julia_group
