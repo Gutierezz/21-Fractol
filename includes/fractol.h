@@ -6,7 +6,7 @@
 /*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 15:42:48 by ttroll            #+#    #+#             */
-/*   Updated: 2019/10/19 19:37:31 by ttroll           ###   ########.fr       */
+/*   Updated: 2019/10/20 11:20:20 by ttroll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define PI 3.14159265359
 
 # define INDEX(x, y, size) (y * size + x)
+
+typedef unsigned char UCHAR;
 
 typedef enum	s_err
 {

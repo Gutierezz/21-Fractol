@@ -6,7 +6,7 @@
 /*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 15:40:46 by ttroll            #+#    #+#             */
-/*   Updated: 2019/10/19 12:33:53 by ttroll           ###   ########.fr       */
+/*   Updated: 2019/10/20 13:29:06 by ttroll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define VK_2				19
 # define VK_3				20
 # define VK_4				21
+# define VK_5				22
+# define VK_6				23
 
 # define VK_NUM_0			82
 # define VK_NUM_1			83

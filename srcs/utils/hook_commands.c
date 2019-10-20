@@ -30,7 +30,7 @@ int	mouse_zoom(int key, int x, int y, t_fract *fract)
 		fract->re_range.max = lerp(1 / zoom, mouse_pos.re, fract->re_range.max);
 		fract->im_range.min = lerp(1 / zoom, mouse_pos.im, fract->im_range.min);
 		fract->im_range.max = lerp(1 / zoom, mouse_pos.im, fract->im_range.max);
-		maxiter_change(zoom > 1 ? VK_PLUS : VK_MINUS , fract);
+	//	maxiter_change(zoom > 1 ? VK_PLUS : VK_MINUS , fract);
 		fill_image(fract);
 	}
 	return (0);
