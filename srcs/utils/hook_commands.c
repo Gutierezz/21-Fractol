@@ -60,6 +60,8 @@ int		key_press(int key, t_fract *fract)
 		change_color_mode(key, fract);
 	else if (key == VK_NUM_0)
 		fract->inside_mode = (fract->inside_mode) ? 0 : 1;
+	else if (key == VK_T)
+		fract->coldiv_flag = (fract->coldiv_flag) ? 0 : 1;
 	else if (key == VK_C)
 		shift_colors(fract);
 	else if (key == VK_LESS || key == VK_MORE)

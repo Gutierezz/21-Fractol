@@ -85,4 +85,5 @@ void	fract_init_helper(t_fract *fract)
 	fract->c1 = 2;
 	fract->c2 = 1;
 	fract->c3 = 0;
+	fract->coldiv_flag = 0;
 }

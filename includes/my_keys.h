@@ -12,6 +12,7 @@
 #define VK_I		105
 #define VK_R		114
 #define VK_C		99
+#define VK_T		116
 
 #define VK_RIGHT	65363
 #define VK_LEFT		65361

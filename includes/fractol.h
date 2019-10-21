@@ -98,6 +98,7 @@ typedef struct	s_fract
 	int			color_mode;
 	int			inside_mode;
 	int			multi_pow;
+	int			coldiv_flag;
 	t_colp		(*func)(t_complex, struct s_fract *);
 	int			max_iter;
 	int			static_mouse;
@@ -191,9 +192,10 @@ t_complex		sub_comp(t_complex c1, t_complex c2);
 */
 
 t_colp			color_init(double iter, t_complex last_z);
+t_color			trippy_color(t_colp colp, t_fract *fract);
 t_color			inside_coloring(t_colp colp, t_fract *fract);
 t_color			get_color(t_colp color, t_fract *fract);
-t_color		wiki_color(t_colp colp, t_fract *fract);
+t_color			wiki_color(t_colp colp, t_fract *fract);
 
 /*
 ** julia_group
