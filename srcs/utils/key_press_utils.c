@@ -39,7 +39,7 @@ void	maxiter_change(int key, t_fract *fract)
 	int step;
 
 	step = (int)(fract->max_iter * 0.05);
-	if (key == VK_PLUS && fract->max_iter < 1000000)
+	if (key == VK_PLUS && fract->max_iter < 100000)
 		fract->max_iter += (fract->max_iter < 50) ? 1 : step;
 	if (key == VK_MINUS && fract->max_iter > 10)
 		fract->max_iter += (fract->max_iter > 50) ? -step : -1;

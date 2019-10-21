@@ -9,13 +9,17 @@ t_colp		color_init(double iter, t_complex last_z)
 	return (colp);
 }
 
-static int color_func(double i,double f, double p)
+t_color	trippy_color(t_colp colp, t_fract *fract)
 {
-    return ((int)pow(255*(cos(sqrt(i) * f + p)), 2.0));
+	t_color ucol;
+	double	perc;
+
+	perc = colp.iter / fract->max_iter;
+	ucol.ch[fract->c1] = (UCHAR)(pow(255*(cos(sqrt(perc) + 0)), 2.0));
+	ucol.ch[fract->c2] = (UCHAR)(pow(255*(cos(sqrt(perc) + 120)), 2.0));
+	ucol.ch[fract->c3] = (UCHAR)(pow(255*(cos(sqrt(perc) + 240)), 2.0));
+	return (ucol);
 }
-// color |= (UCHAR)(9 * (1 - perc) * pow(perc, 3) * 255) << 16;
-		// color |= (UCHAR)(15 * pow((1 - perc),2) * pow(perc, 2) * 255) << 8;
-		// color |= (UCHAR)(8.5 * pow((1 - perc), 3)  * perc * 255);
 
 t_color		get_color(t_colp colp, t_fract *fract)
 {
@@ -34,25 +38,15 @@ t_color		get_color(t_colp colp, t_fract *fract)
 		ucol.ch[fract->c3] = (UCHAR)(255 - perc * 3.5);
 	}
 	else if (fract->color_mode == 2)
-	{
-		perc = colp.iter + atan(colp.z.im/colp.z.re);
-		ucol.ch[fract->c1] = (UCHAR)(0.8 * sin(perc) * 150 + 65);
-		ucol.ch[fract->c2] = (UCHAR)(0.6 * sin(perc) * 150 + 65);
-		ucol.ch[fract->c3] = (UCHAR)(0.2 * sin(perc) * 150 + 15);
-	}
+		return (wiki_color(colp, fract));
 	else if (fract->color_mode == 3)
-	{
-		perc = colp.iter / fract->max_iter;
-		ucol.ch[fract->c1] = (UCHAR)(color_func(perc, 1, 0));
-		ucol.ch[fract->c2] = (UCHAR)(color_func(perc, 1, 120));
-		ucol.ch[fract->c3] = (UCHAR)(color_func(perc, 1, 240));
-	}
+		return (trippy_color(colp, fract));
 	else if (fract->color_mode == 4)
 	{
 		perc = (colp.iter + colp.z.re + colp.z.im)/ fract->max_iter;
-		ucol.ch[fract->c3] = (UCHAR)(7.4 * pow(1.0 - perc, 2) * 255);
-		ucol.ch[fract->c2] = (UCHAR)(5.7 * (1.0 - pow(perc, 1) * 255));
-		ucol.ch[fract->c1] = (UCHAR)(4.3 * pow(perc, 3) * 255);
+		ucol.ch[fract->c3] = (UCHAR)(4.4 * pow(1.0 - perc, 2) * 255);
+		ucol.ch[fract->c2] = (UCHAR)(2.7 * (1.0 - pow(perc, 1) * 255));
+		ucol.ch[fract->c1] = (UCHAR)(3.3 * pow(perc, 3) * 255);
 	}
 	return (ucol);
 }
@@ -74,5 +68,17 @@ t_color		inside_coloring(t_colp colp, t_fract *fract)
 		ucol.ch[1] = (UCHAR)(255 - perc * 5.5);
 		ucol.ch[2] = (UCHAR)(255 - perc * 8.5);
 	}
+	return (ucol);
+}
+
+t_color		wiki_color(t_colp colp, t_fract *fract)
+{
+	double	perc;
+	t_color ucol;
+
+	perc = colp.iter / fract->max_iter;
+	ucol.ch[fract->c1] = (UCHAR)(9 * (1 - perc) * pow(perc, 3) * 255);
+	ucol.ch[fract->c2] = (UCHAR)(15 * pow((1 - perc),2) * pow(perc, 2) * 255);
+	ucol.ch[fract->c3] = (UCHAR)(8.5 * pow((1 - perc), 3)  * perc * 255);
 	return (ucol);
 }

@@ -193,6 +193,7 @@ t_complex		sub_comp(t_complex c1, t_complex c2);
 t_colp			color_init(double iter, t_complex last_z);
 t_color			inside_coloring(t_colp colp, t_fract *fract);
 t_color			get_color(t_colp color, t_fract *fract);
+t_color		wiki_color(t_colp colp, t_fract *fract);
 
 /*
 ** julia_group
