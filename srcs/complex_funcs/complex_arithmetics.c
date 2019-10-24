@@ -35,3 +35,12 @@ t_complex	sub_comp(t_complex c1, t_complex c2)
 	res.im = c1.im - c2.im;
 	return (res);
 }
+
+t_complex	real_mult(t_complex c, double num)
+{
+	t_complex	res;
+
+	res.re = c.re * num;
+	res.im = c.im * num;
+	return (res);
+}

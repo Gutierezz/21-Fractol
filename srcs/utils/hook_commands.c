@@ -1,12 +1,12 @@
 #include "fractol.h"
 
-int		close_window(t_fract *fract)
+int				close_window(t_fract *fract)
 {
 	fract_clear(&fract, 0);
 	exit (0);
 }
 
-int	set_julia_seed(int x, int y, t_fract *fract)
+int				set_julia_seed(int x, int y, t_fract *fract)
 {
 	if (fract->static_mouse == 0)
 		fract->julia_seed = complex(((double)x * fract->scale.re - 2.0), \
@@ -15,7 +15,7 @@ int	set_julia_seed(int x, int y, t_fract *fract)
 	return(0);
 }
 
-int	mouse_zoom(int key, int x, int y, t_fract *fract)
+int				mouse_zoom(int key, int x, int y, t_fract *fract)
 {
 	t_complex	mouse_pos;
 	double		zoom;
@@ -35,7 +35,7 @@ int	mouse_zoom(int key, int x, int y, t_fract *fract)
 	return (0);
 }
 
-int		key_press(int key, t_fract *fract)
+int				key_press(int key, t_fract *fract)
 {
 	if (key == VK_ESCAPE)
 	{
@@ -43,13 +43,7 @@ int		key_press(int key, t_fract *fract)
 		exit(0);
 	}
 	else if (key == VK_R)
-	{
-		fract->max_iter = 50;
-		fract->re_range = range(-2.0, 2.0);
-		fract->im_range = range(-2.0, 2.0);
-		fract->scale.im = (fract->im_range.max - fract->im_range.min) / (WIN_H - 1);
-		fract->scale.re = (fract->re_range.max - fract->re_range.min) / (WIN_W - 1);
-	}
+		reset_fractal(fract);
 	else if (key == VK_SPACE)
 		fract->static_mouse = (fract->static_mouse == 1) ? 0 : 1;
 	else if (key == VK_PLUS || key == VK_MINUS)
@@ -75,7 +69,7 @@ int		key_press(int key, t_fract *fract)
 	return (0);
 }
 
-void	hook_commands(t_fract *fract)
+void			hook_commands(t_fract *fract)
 {
 	if (fract->type == JULIA || fract->type == MULTIJULIA)
 		mlx_hook(fract->win, 6, 1L<<6, set_julia_seed, fract);

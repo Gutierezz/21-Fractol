@@ -1,8 +1,8 @@
 #include "fractol.h"
 
-static	t_type get_type_2(char *name);
+static t_type	get_type_2(char *name);
 
-static	t_type get_type(char *name)
+static t_type	get_type(char *name)
 {
 	if (ft_strequ(name, "Mandelbrot"))
 		return (MANDELBROT);
@@ -22,7 +22,7 @@ static	t_type get_type(char *name)
 		return (get_type_2(name));
 }
 
-static	t_type get_type_2(char *name)
+static t_type	get_type_2(char *name)
 {
 	if (ft_strequ(name, "Newton"))
 		return (NEWTON);
@@ -35,25 +35,45 @@ static	t_type get_type_2(char *name)
 	return (INVALID);
 }
 
-int	main(int ac, char **av)
+static void		create_fractals(int ac, char **av)
 {
+	t_fract		*fracts[MAX_WINDOWS];
+	void		*mlx;
+	int			i;
 
-	t_fract	*fract;
-	t_type	type;
+	i = -1;
+	if ((mlx = mlx_init()) == NULL)
+		error_exit(MLX_INIT_ERR);
+	while (++i < ac - 1)
+	{
+		fracts[i] = fract_init(av[i + 1], get_type(av[i + 1]), mlx);
+		fill_image(fracts[i]);
+	}
+	mlx_loop(mlx);
+	i = -1;
+	while (++i < ac - 1)
+		fract_clear(&fracts[i], 0);
+	ft_memdel((void**)&mlx);
+}
 
-	fract = NULL;
-	if (ac < 2)
+int				main(int ac, char **av)
+{
+	int			i;
+	t_type		type;
+
+	i = 0;
+	if (ac < 2 || ac > 6)
 	{
 		ft_printf("Usage: ./fractol NAME");
 		ft_printf("NAMES : Mandelbrot, BurningShip, Manowar, Spider, Multibrot, \n \
 		Celtic, Julia, Phoenix, MultiJulia, Newton, Nova");
 		return (0);
 	}
-	if ((type = get_type(av[1])) == INVALID)
-		error_exit(INVALID_NAME);
-	fract = fract_init(av[1], type);
-	fill_image(fract);
-	mlx_loop(fract->mlx);
-	fract_clear(&fract, 0);
+	while (++i < ac - 1)
+	{
+		if ((type = get_type(av[i])) == INVALID)
+			error_exit(INVALID_NAME);
+	}
+	create_fractals(ac, av);
 	return (0);
 }

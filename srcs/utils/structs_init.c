@@ -1,16 +1,15 @@
 #include "fractol.h"
 
-t_fract			*fract_init(char *name, t_type type)
+t_fract			*fract_init(char *name, t_type type, void *mlx)
 {
 	t_fract		*fract;
 	char		*title;
 
 	if (!(title = ft_strjoin("Fractol - ", name)))
-		return (NULL);
+		error_exit(MEM_ALLOC_ERR);
 	if (!(fract = (t_fract*)ft_memalloc(sizeof(t_fract))))
-		return (NULL);
-	if ((fract->mlx = mlx_init()) == NULL)
-		fract_clear(&fract, MLX_INIT_ERR);
+		error_exit(MEM_ALLOC_ERR);
+	fract->mlx = mlx;
 	if ((fract->win = mlx_new_window(fract->mlx, WIN_W, WIN_H, title)) == NULL)
 		fract_clear(&fract, WINDOW_INIT_ERR);
 	if ((fract->img = mlx_new_image(fract->mlx, WIN_W, WIN_H)) == NULL)
