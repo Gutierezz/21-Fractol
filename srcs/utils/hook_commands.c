@@ -8,11 +8,15 @@ int				close_window(t_fract *fract)
 
 int				set_julia_seed(int x, int y, t_fract *fract)
 {
-	if (fract->static_mouse == 0)
-		fract->julia_seed = complex(((double)x * fract->scale.re - 2.0), \
-				((double)(WIN_H - y) * fract->scale.im - 2.0));
-	fill_image(fract);
-	return(0);
+	if ((x > 0 && x < WIN_W) && (y > 0 && y < WIN_H))
+	{
+		mlx_clear_window(fract->mlx, fract->win);
+		if (fract->static_mouse == 0)
+			fract->julia_seed = complex(((double)x * fract->scale.re - 2.0), \
+					((double)(WIN_H - y) * fract->scale.im - 2.0));
+		fill_image(fract);
+	}
+	return (0);
 }
 
 int				mouse_zoom(int key, int x, int y, t_fract *fract)

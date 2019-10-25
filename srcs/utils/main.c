@@ -75,5 +75,5 @@ int				main(int ac, char **av)
 			error_exit(INVALID_NAME);
 	}
 	create_fractals(ac, av);
-	return (0);
+	exit (0);
 }
