@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   newton_group.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/25 15:16:45 by ttroll            #+#    #+#             */
+/*   Updated: 2019/10/25 15:16:46 by ttroll           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-t_colp		nova(t_complex c, t_fract *fract)
+t_colp			nova(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -13,7 +25,7 @@ t_colp		nova(t_complex c, t_fract *fract)
 	z = complex(1.0, 0.0);
 	while (i < fract->max_iter)
 	{
-		if (comp_abs(sub_comp(z, prev_z)) < 1e-8)
+		if (comp_abs(sub_comp(z, prev_z)) < 1e-5)
 			break ;
 		top = sub_comp(comppow(z, 3), complex(1.0, 0.0));
 		bot = real_mult(comppow(z, 2), 3.0);
@@ -24,7 +36,7 @@ t_colp		nova(t_complex c, t_fract *fract)
 	return (color_init((double)i, z));
 }
 
-t_colp		newton(t_complex c, t_fract *fract)
+t_colp			newton(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -38,7 +50,7 @@ t_colp		newton(t_complex c, t_fract *fract)
 	while (i < fract->max_iter)
 	{
 		top = sub_comp(comppow(z, fract->multi_pow), complex(1.0, 0.0));
-		if (comp_abs(top) < 1e-6)
+		if (comp_abs(top) < 1e-5)
 			break ;
 		bot = real_mult(comppow(z, fract->multi_pow - 1), fract->multi_pow);
 		z = sub_comp(z, comp_div(top, bot));

@@ -6,11 +6,11 @@
 /*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 15:42:48 by ttroll            #+#    #+#             */
-/*   Updated: 2019/10/20 16:47:58 by ttroll           ###   ########.fr       */
+/*   Updated: 2019/10/25 18:22:46 by ttroll           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FRACTOL_H
+#ifndef FRACTOL_H
 # define FRACTOL_H
 
 # include <math.h>
@@ -18,33 +18,29 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx.h"
-# include "my_keys.h"
-//# include "keys.h"
+# include "keys.h"
 
 # define WIN_W 800
 # define WIN_H 800
 # define THREADS_NUM 8
-# define MAX_WINDOWS 5
-
+# define MAX_WINDOWS 4
 # define MOVE_STEP 0.05
 # define PI 3.14159265359
 
 # define INDEX(x, y, size) (y * size + x)
 
-typedef unsigned char UCHAR;
+typedef unsigned char	t_uchar;
 
-typedef enum	s_err
+typedef enum	e_err
 {
 	MLX_INIT_ERR = 1,
 	WINDOW_INIT_ERR,
 	IMAGE_INIT_ERR,
 	DATA_ADDR_ERR,
-	FDF_INIT_ERR,
 	MEM_ALLOC_ERR,
-	INVALID_NAME
 }				t_err;
 
-typedef enum	s_type
+typedef enum	e_type
 {
 	MANDELBROT,
 	BURN_SHIP,
@@ -68,14 +64,14 @@ typedef struct	s_complex
 
 typedef	struct	s_colp
 {
-	double iter;
-	t_complex z;
+	double		iter;
+	t_complex	z;
 }				t_colp;
 
 typedef	union	u_color
 {
 	int			color;
-	UCHAR		ch[4];
+	t_uchar		ch[4];
 }				t_color;
 
 typedef struct	s_range
@@ -91,9 +87,10 @@ typedef struct	s_fract
 	void		*win;
 	void		*img;
 	char		*data;
+	int			*win_cnt;
 	int			bpp;
 	int			line_size;
-	int 		endian;
+	int			endian;
 	int			thread_min_y;
 	int			thread_max_y;
 	int			color_mode;
@@ -106,8 +103,9 @@ typedef struct	s_fract
 	t_complex	scale;
 	t_range		re_range;
 	t_range		im_range;
-	int 		c1;
-	int 		c2;
+	double		scale_num;
+	int			c1;
+	int			c2;
 	int			c3;
 	t_complex	julia_seed;
 }				t_fract;
@@ -116,10 +114,10 @@ typedef struct	s_fract
 ** hook_commands
 */
 
-int				close_window(t_fract *fract);
 int				mouse_zoom(int key, int x, int y, t_fract *fract);
 int				set_julia_seed(int x, int y, t_fract *fract);
 int				key_press(int key, t_fract *fract);
+void			key_press_helper(int key, t_fract *fract);
 void			hook_commands(t_fract *fract);
 
 /*
@@ -146,10 +144,8 @@ void			fill_image(t_fract *fract);
 ** structs_init
 */
 
-t_fract			*fract_init(char *name, t_type type, void *mlx);
+t_fract			*fract_init(char *name, t_type type, void *mlx, int *win_cnt);
 t_complex		complex(double re, double im);
-t_colp			(*choose_func(t_type type))(t_complex, t_fract *);
-t_colp			(*choose_func_2(t_type type))(t_complex, t_fract *);
 void			fract_init_helper(t_fract *fract);
 
 /*
@@ -190,14 +186,22 @@ t_complex		sub_comp(t_complex c1, t_complex c2);
 t_complex		real_mult(t_complex c, double num);
 
 /*
-** get_point_color
+** get_color
 */
 
 t_colp			color_init(double iter, t_complex last_z);
-t_color			trippy_color(t_colp colp, t_fract *fract);
 t_color			inside_coloring(t_colp colp, t_fract *fract);
 t_color			get_color(t_colp color, t_fract *fract);
-t_color			wiki_color(t_colp colp, t_fract *fract);
+int				close_window(t_fract *fract);
+
+/*
+** color_funcs
+*/
+
+t_color			default_color(t_colp colp, t_fract *fract);
+t_color			trippy_color(t_colp colp, t_fract *fract);
+t_color			cookbook_color(t_colp colp, t_fract *fract);
+t_color			sin_color(t_colp colp, t_fract *fract);
 
 /*
 ** julia_group

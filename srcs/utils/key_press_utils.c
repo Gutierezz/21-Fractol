@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_press_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/25 13:07:27 by ttroll            #+#    #+#             */
+/*   Updated: 2019/10/25 17:20:05 by ttroll           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 void		change_color_mode(int key, t_fract *fract)
@@ -10,13 +22,11 @@ void		change_color_mode(int key, t_fract *fract)
 		fract->color_mode = 3;
 	if (key == VK_4)
 		fract->color_mode = 4;
-	if (key == VK_5)
-		fract->color_mode = 5;
 }
 
 void		move_image(int key, t_fract *fract)
 {
-	double 	step;
+	double	step;
 
 	if (key == VK_LEFT || key == VK_RIGHT)
 	{
@@ -34,7 +44,7 @@ void		move_image(int key, t_fract *fract)
 
 void		maxiter_change(int key, t_fract *fract)
 {
-	int 	step;
+	int		step;
 
 	step = (int)(fract->max_iter * 0.05);
 	if (key == VK_PLUS && fract->max_iter < 100000)
@@ -52,6 +62,7 @@ void		shift_colors(t_fract *fract)
 
 void		reset_fractal(t_fract *fract)
 {
+	fract->scale_num = 1.0;
 	fract->max_iter = 50;
 	fract->re_range = range(-2.0, 2.0);
 	fract->im_range = range(-2.0, 2.0);

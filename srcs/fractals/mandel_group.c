@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mandel_group.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttroll <ttroll@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/25 15:16:25 by ttroll            #+#    #+#             */
+/*   Updated: 2019/10/25 15:16:33 by ttroll           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-t_colp		mandelbrot(t_complex c, t_fract *fract)
+t_colp			mandelbrot(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -15,7 +27,7 @@ t_colp		mandelbrot(t_complex c, t_fract *fract)
 	return (color_init((double)i, z));
 }
 
-t_colp		burning_ship(t_complex c, t_fract *fract)
+t_colp			burning_ship(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -31,7 +43,7 @@ t_colp		burning_ship(t_complex c, t_fract *fract)
 	return (color_init((double)i, z));
 }
 
-t_colp		multi_mandel(t_complex c, t_fract *fract)
+t_colp			multi_mandel(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -41,18 +53,14 @@ t_colp		multi_mandel(t_complex c, t_fract *fract)
 	z = c;
 	while (in_circle(z) && i < fract->max_iter)
 	{
-		if (fract->multi_pow == 0)
-			z_pow = complex(1.0, 0.0);
-		else
-			z_pow = (fract->multi_pow > 0) ? comppow(z, fract->multi_pow) : \
-			reverse_comp(comppow(z, -fract->multi_pow));
+		z_pow = comppow(z, fract->multi_pow);
 		z = add_comp(z_pow, c);
 		i++;
 	}
 	return (color_init((double)i, z));
 }
 
-t_colp		spider(t_complex c, t_fract *fract)
+t_colp			spider(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;
@@ -68,7 +76,7 @@ t_colp		spider(t_complex c, t_fract *fract)
 	return (color_init((double)i, z));
 }
 
-t_colp		celtic(t_complex c, t_fract *fract)
+t_colp			celtic(t_complex c, t_fract *fract)
 {
 	int			i;
 	t_complex	z;

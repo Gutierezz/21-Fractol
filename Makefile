@@ -3,7 +3,7 @@ NAME = fractol
 SRC_DIR 	= ./srcs
 OBJ_DIR 	= ./obj
 LIB_DIR 	= ./libft
-MLX_DIR 	= ../mlx_test # перелинковать на маке
+MLX_DIR 	= ./minilibx # перелинковать на маке
 
 LIB 		= $(LIB_DIR)/libft.a
 
@@ -17,7 +17,7 @@ UTILS_O_DIR	= $(OBJ_DIR)/utils
 
 COMP_FILES	= complex_arithmetics.c complex_ops.c
 FRACT_FILES = julia_group.c mandel_group.c newton_group.c
-UTILS_FILES = structs_clear.c structs_init.c fill_area.c get_point_color.c hook_commands.c key_press_utils.c image_funcs.c main.c
+UTILS_FILES = structs_clear.c structs_init.c fill_area.c get_color.c color_funcs.c hook_commands.c key_press_utils.c image_funcs.c main.c
 
 COMP_OBJ	= $(addprefix $(COMP_O_DIR)/, $(COMP_FILES:%.c=%.o))
 FRACT_OBJ 	= $(addprefix $(FRACT_O_DIR)/, $(FRACT_FILES:%.c=%.o))
@@ -28,7 +28,7 @@ CC		  	= gcc
 INC		  	= -I $(LIB_DIR)/includes -I includes -I $(MLX_DIR)
 FLAGS 		= -Wall -Wextra -Werror -O3# УДАЛИТЬ ФЛАГ
 LIB_LINK	= -lm -lpthread -L $(LIB_DIR) -lft
-MLX_LINK 	= -L $(MLX_DIR) -lmlx -lXext -lX11 #-framework OpenGL -framework AppKit
+MLX_LINK 	= -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 
 all: $(LIB) $(NAME)
